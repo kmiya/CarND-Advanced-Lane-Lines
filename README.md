@@ -53,7 +53,7 @@ So far we know the camera matrix `mtx` and distortion coefficients `dist`. So a 
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image.
+My code uses a combination of color and gradient thresholds to generate a binary image.
 ```python
 def color_pipeline(img, s_thresh=(170, 255), sx_thresh=(20, 100)):
     img = np.copy(img)
@@ -93,7 +93,7 @@ Here's an example of my output for this step.
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`.  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+My code for the perspective transform includes a function called `warper()`. The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points. The source and destination points are hard-coded in the following manner:
 
 ```python
 def get_image_src_dst(img):
@@ -102,7 +102,7 @@ def get_image_src_dst(img):
     dst = np.array([[0, 0], [0, h], [w, h], [w, 0]], dtype=np.float32)
     return src, dst
 ```
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+You can see that the perspective transform is working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
 ![alt text][image4]
 
@@ -133,7 +133,7 @@ Here is a example of the fitting.
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-The code is as follows. To compute the position of the vehicle w.r.t. center, first I calculate the mid-point between the left lane and the right lane. Then, compute the distance between the mid-point and the center of the image.
+The code is as follows. To compute the position of the vehicle w.r.t. center, first it calculates the mid-point between the left lane and the right lane. Then, computes the distance between the mid-point and the center of the image.
 ```python
 # Define conversions in x and y from pixels space to meters
 ym_per_pix = 30/720 # meters per pixel in y dimension
@@ -214,4 +214,4 @@ Here is an example of my result on a test image:
 
 - As you can see in the [challenge_video](./output_images/challenge_video_output.mp4), my pipeline may fail if there is another valid "line" on the road. One idea to avoid the false detection is to restrict the distance between the detected left lane and the right lane. It would be effective because the width of the road is usually specified by law.
 - My pipeline is not robust against the shade. To make the pipeline more robust, additional image processing would be promising. For example,  high-dynamic-range rendering, histogram equalization, and multi-scale retinex.
-- As you can see in the [harder_challenge_video](./output_images/harder_video_output.mp4), sharp curves collapse my pipeline because the `src` and `dst` for perspective transformation are hard-coded in the pipeline. The values should be adaptively calculated by some neat algorithms.
+- As you can see in the [harder_challenge_video](./output_images/harder_video_output.mp4), sharp curves collapse my pipeline because the `src` and `dst` for the perspective transformation are hard-coded in the pipeline. The values should be adaptively calculated by some neat algorithms.
